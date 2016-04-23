@@ -128,6 +128,7 @@ import me.ccrama.redditslide.util.LogUtil;
 import me.ccrama.redditslide.util.NetworkUtil;
 import me.ccrama.redditslide.util.OnSingleClickListener;
 import me.ccrama.redditslide.util.SubmissionParser;
+import me.ccrama.redditslide.util.UpgradeUtil;
 
 
 public class MainActivity extends BaseActivity {
@@ -309,6 +310,8 @@ public class MainActivity extends BaseActivity {
             getBaseContext().getResources().updateConfiguration(config,
                     getBaseContext().getResources().getDisplayMetrics());
         }
+
+        UpgradeUtil.upgrade();
 
         disableSwipeBackLayout();
         super.onCreate(savedInstanceState);
