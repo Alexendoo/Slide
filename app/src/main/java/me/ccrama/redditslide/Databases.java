@@ -23,28 +23,25 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 public class Databases {
-    public static abstract class SubredditEntry implements BaseColumns {
-        public static final String TABLE_NAME = "subreddit";
-        public static final String COLUMN_NAME_TITLE = "title";
+    public static abstract class RedditEntry implements BaseColumns {
+        public static final String COLUMN_NAME_PATH = "path";
+        public static final String COLUMN_NAME_DISPLAYNAME = "displayname";
     }
 
-    public class Subreddits extends SQLiteOpenHelper {
+    public class Reddits extends SQLiteOpenHelper {
         public static final int DATABASE_VERSION = 1;
-        public static final String DATABASE_NAME = "subreddits.db";
+        public static final String DATABASE_NAME = "reddits.db";
 
-
-        public Subreddits(Context context) {
+        public Reddits(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-//            db.execSQL("CREATE TABLE ");
+//            db.execSQL();
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            onCreate(db);
-        }
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
     }
 }
