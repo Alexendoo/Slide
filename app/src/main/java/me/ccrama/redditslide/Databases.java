@@ -24,8 +24,24 @@ import android.provider.BaseColumns;
 
 public class Databases {
     public static abstract class RedditEntry implements BaseColumns {
-        public static final String COLUMN_NAME_PATH = "path";
-        public static final String COLUMN_NAME_DISPLAYNAME = "displayname";
+        public static final String TABLE_NAME = "reddits";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_HIDDEN = "hidden";
+        public static final String COLUMN_DETAIL_ID = "detail_id";
+        public static final String COLUMN_SORT_ORDER = "sort_order";
+    }
+
+    public static abstract class SubredditDetail implements BaseColumns {
+        public static final String TABLE_NAME = "subreddit_detail";
+        public static final String COLUMN_SUBSCRIBED = "subscribed";
+        public static final String COLUMN_MODERATOR = "moderator";
+    }
+
+    public static abstract class MultiredditDetail implements BaseColumns {
+        public static final String TABLE_NAME = "multireddit_detail";
+        public static final String COLUMN_PATH = "path";
+        public static final String COLUMN_OWNER = "owner";
     }
 
     public class Reddits extends SQLiteOpenHelper {
@@ -38,7 +54,26 @@ public class Databases {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-//            db.execSQL();
+            db.execSQL("CREATE TABLE " + RedditEntry.TABLE_NAME + "(" +
+                    RedditEntry._ID + " INTEGER PRIMARY KEY," +
+                    RedditEntry.COLUMN_NAME + " TEXT," +
+                    RedditEntry.COLUMN_TYPE + " TEXT," +
+                    RedditEntry.COLUMN_HIDDEN + " BOOLEAN," +
+                    RedditEntry.COLUMN_DETAIL_ID + " INTEGER," +
+                    RedditEntry.COLUMN_SORT_ORDER + " INTEGER" +
+                    ")"
+            );
+            db.execSQL("CREATE TABLE " + SubredditDetail.TABLE_NAME + "(" +
+                    SubredditDetail._ID + " INTEGER PRIMARY KEY," +
+                    SubredditDetail.COLUMN_SUBSCRIBED + " BOOLEAN," +
+                    SubredditDetail.COLUMN_MODERATOR + " BOOLEAN" +
+                    ")"
+            );
+            db.execSQL("CREATE TABLE " + MultiredditDetail.TABLE_NAME + "(" +
+                    MultiredditDetail._ID + " INTEGER PRIMARY KEY," +
+                    MultiredditDetail.COLUMN_PATH + "path," +
+                    ")"
+            );
         }
 
         @Override
