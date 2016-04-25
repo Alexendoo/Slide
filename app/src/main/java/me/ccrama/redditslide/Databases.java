@@ -46,7 +46,8 @@ public class Databases {
 
     public class Reddits extends SQLiteOpenHelper {
         public static final int DATABASE_VERSION = 1;
-        public static final String DATABASE_NAME = "reddits.db";
+        // TODO: Final name
+        public static final String DATABASE_NAME = "reddits-001.db";
 
         public Reddits(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -56,27 +57,25 @@ public class Databases {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("CREATE TABLE " + RedditEntry.TABLE_NAME + "(" +
                     RedditEntry._ID + " INTEGER PRIMARY KEY," +
-                    RedditEntry.COLUMN_NAME + " TEXT," +
+                    RedditEntry.COLUMN_NAME + " TEXT COLLATE NOCASE," +
                     RedditEntry.COLUMN_TYPE + " TEXT," +
                     RedditEntry.COLUMN_HIDDEN + " BOOLEAN," +
                     RedditEntry.COLUMN_DETAIL_ID + " INTEGER," +
-                    RedditEntry.COLUMN_SORT_ORDER + " INTEGER" +
-                    ")"
-            );
+                    RedditEntry.COLUMN_SORT_ORDER + " INTEGER" + ")");
             db.execSQL("CREATE TABLE " + SubredditDetail.TABLE_NAME + "(" +
                     SubredditDetail._ID + " INTEGER PRIMARY KEY," +
                     SubredditDetail.COLUMN_SUBSCRIBED + " BOOLEAN," +
-                    SubredditDetail.COLUMN_MODERATOR + " BOOLEAN" +
-                    ")"
-            );
+                    SubredditDetail.COLUMN_MODERATOR + " BOOLEAN" + ")");
             db.execSQL("CREATE TABLE " + MultiredditDetail.TABLE_NAME + "(" +
                     MultiredditDetail._ID + " INTEGER PRIMARY KEY," +
-                    MultiredditDetail.COLUMN_PATH + "path," +
-                    ")"
-            );
+                    MultiredditDetail.COLUMN_PATH + " TEXT," +
+                    MultiredditDetail.COLUMN_OWNER + " TEXT COLLATE NOCASE," + ")");
+
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            // Any DB changes should be completely airtight
+        }
     }
 }
