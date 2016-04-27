@@ -24,47 +24,38 @@ import android.provider.BaseColumns;
 
 public class Databases {
 
-    // Schema 1
-
-    private static abstract class RedditEntry implements BaseColumns {
-        public static final String TABLE_NAME = "reddits";
-        public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_TYPE = "type";
-        public static final String COLUMN_USER = "user";
-        public static final String COLUMN_HIDDEN = "hidden";
-        public static final String COLUMN_DETAIL_ID = "detail_id";
-        public static final String COLUMN_ORDER_NUMBER = "order_number";
-        public static final String COLUMN_THEME_PRIMARY = "theme_primary";
-        public static final String COLUMN_THEME_ACCENT = "theme_accent";
-        public static final String COLUMN_PREVIEW_BIG = "preview_big";
-        public static final String COLUMN_PREVIEW_SELF = "preview_self";
-    }
-
-    private static abstract class SubredditDetail implements BaseColumns {
-        public static final String TABLE_NAME = "subreddit_detail";
-        public static final String COLUMN_SUBSCRIBED = "subscribed";
-        public static final String COLUMN_MODERATOR = "moderator";
-        public static final String COLUMN_NSFW = "nsfw";
-        public static final String COLUMN_MOBILE_COLOR = "mobile_color";
-    }
-
-    private static abstract class MultiredditDetail implements BaseColumns {
-        public static final String TABLE_NAME = "multireddit_detail";
-        public static final String COLUMN_PATH = "path";
-        public static final String COLUMN_OWNER = "owner";
-    }
-
-    // Schema 2:
-
     private static abstract class UserEntry implements BaseColumns {
         public static final String TABLE_NAME = "users";
         public static final String COLUMN_USER = "user";
         public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_SORT_NUMBER = "sort";
         public static final String COLUMN_DETAIL_ID = "detail_id";
     }
 
     private static abstract class SubredditEntry implements BaseColumns {
-        public static final
+        public static final String TABLE_NAME = "subreddits";
+        public static final String COLUMN_USER = "user";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_STATUS = "status"; // Subscribed|Casual|Hidden|History
+        public static final String COLUMN_NSFW = "nsfw";
+        public static final String COLUMN_MODERATOR = "moderator";
+        public static final String COLUMN_THEME_PRIMARY = "theme_primary";
+        public static final String COLUMN_THEME_ACCENT = "theme_accent";
+        public static final String COLUMN_PREVIEW_BIG = "preview_big";
+        public static final String COLUMN_PREVIEW_SELF = "preview_self";
+        public static final String COLUMN_MOBILE_COLOR = "mobile_color";
+    }
+
+    private static abstract class MultiredditEntry implements BaseColumns {
+        public static final String TABLE_NAME = "multireddits";
+        public static final String COLUMN_USER = "user";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_PATH = "path";
+        public static final String COLUMN_OWNER = "owner";
+        public static final String COLUMN_THEME_PRIMARY = "theme_primary";
+        public static final String COLUMN_THEME_ACCENT = "theme_accent";
+        public static final String COLUMN_PREVIEW_BIG = "preview_big";
+        public static final String COLUMN_PREVIEW_SELF = "preview_self";
     }
 
     private class Reddits extends SQLiteOpenHelper {
@@ -78,44 +69,57 @@ public class Databases {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + RedditEntry.TABLE_NAME + "(" +
-                    RedditEntry._ID + " INTEGER PRIMARY KEY," +
-                    RedditEntry.COLUMN_NAME + " TEXT COLLATE NOCASE," +
-                    RedditEntry.COLUMN_USER + " TEXT COLLATE NOCASE," +
-                    RedditEntry.COLUMN_TYPE + " TEXT," +
-                    RedditEntry.COLUMN_DETAIL_ID + " INTEGER," +
-                    RedditEntry.COLUMN_ORDER_NUMBER + " INTEGER" +
-                    RedditEntry.COLUMN_HIDDEN + " BOOLEAN," +
-                    RedditEntry.COLUMN_PREVIEW_BIG + " BOOLEAN," +
-                    RedditEntry.COLUMN_PREVIEW_SELF + " BOOLEAN," +
-                    RedditEntry.COLUMN_THEME_PRIMARY + " TEXT," +
-                    RedditEntry.COLUMN_THEME_ACCENT + " TEXT," +
-                    ")");
-            db.execSQL("CREATE TABLE " + SubredditDetail.TABLE_NAME + "(" +
-                    SubredditDetail._ID + " INTEGER PRIMARY KEY," +
-                    SubredditDetail.COLUMN_SUBSCRIBED + " BOOLEAN," +
-                    SubredditDetail.COLUMN_MODERATOR + " BOOLEAN," +
-                    SubredditDetail.COLUMN_NSFW + " BOOLEAN," +
-                    SubredditDetail.COLUMN_MOBILE_COLOR + " TEXT," +
-                    ")");
-            db.execSQL("CREATE TABLE " + MultiredditDetail.TABLE_NAME + "(" +
-                    MultiredditDetail._ID + " INTEGER PRIMARY KEY," +
-                    MultiredditDetail.COLUMN_PATH + " TEXT," +
-                    MultiredditDetail.COLUMN_OWNER + " TEXT COLLATE NOCASE," +
-                    ")");
-            // TODO: Indexes, drop trailing commas
+            db.execSQL("CREATE TABLE " + UserEntry.TABLE_NAME + "(" +
+                    UserEntry._ID + " INTEGER PRIMARY KEY," +
+                    UserEntry.COLUMN_USER + " TEXT COLLATE nocase," +
+                    UserEntry.COLUMN_TYPE + " TEXT," +
+                    UserEntry.COLUMN_SORT_NUMBER + " INTEGER," +
+                    UserEntry.COLUMN_DETAIL_ID + " INTEGER)");
+            db.execSQL("CREATE INDEX ix_users_user_sort_detail ON " + UserEntry.TABLE_NAME + "(" +
+                    UserEntry.COLUMN_USER + " COLLATE nocase," +
+                    UserEntry.COLUMN_SORT_NUMBER + "," +
+                    UserEntry.COLUMN_DETAIL_ID + ")");
+            db.execSQL("CREATE INDEX ix_users_type ON " + UserEntry.TABLE_NAME + "(" +
+                    UserEntry.COLUMN_TYPE + ")");
 
-            // ALT SCHEME:
+            db.execSQL("CREATE TABLE " + SubredditEntry.TABLE_NAME + "(" +
+                    SubredditEntry._ID + "INTEGER PRIMARY KEY," +
+                    SubredditEntry.COLUMN_USER + " TEXT COLLATE nocase," +
+                    SubredditEntry.COLUMN_NAME + " TEXT COLLATE nocase," +
+                    SubredditEntry.COLUMN_STATUS + " TEXT," +
+                    SubredditEntry.COLUMN_NSFW + " BOOLEAN," +
+                    SubredditEntry.COLUMN_MODERATOR + " BOOLEAN," +
+                    SubredditEntry.COLUMN_PREVIEW_BIG + " BOOLEAN," +
+                    SubredditEntry.COLUMN_PREVIEW_SELF + " BOOLEAN," +
+                    SubredditEntry.COLUMN_THEME_PRIMARY + " INTEGER," +
+                    SubredditEntry.COLUMN_THEME_ACCENT + " INTEGER," +
+                    SubredditEntry.COLUMN_MOBILE_COLOR + " INTEGER)");
+            db.execSQL("CREATE INDEX ix_subs_user_status_name ON " + SubredditEntry.TABLE_NAME + "(" +
+                    SubredditEntry.COLUMN_USER + " COLLATE nocase," +
+                    SubredditEntry.COLUMN_STATUS + "," +
+                    SubredditEntry.COLUMN_NAME + " COLLATE nocase)");
+            db.execSQL("CREATE INDEX ix_subs_mod ON " + SubredditEntry.TABLE_NAME + "(" +
+                    SubredditEntry.COLUMN_MODERATOR + ")");
 
-            db.execSQL();
+            db.execSQL("CREATE TABLE " + MultiredditEntry.TABLE_NAME + "(" +
+                    MultiredditEntry.COLUMN_USER + " TEXT COLLATE nocase," +
+                    MultiredditEntry.COLUMN_NAME + " TEXT COLLATE nocase," +
+                    MultiredditEntry.COLUMN_PATH + " TEXT COLLATE nocase," +
+                    MultiredditEntry.COLUMN_OWNER + " TEXT COLLATE nocase," +
+                    MultiredditEntry.COLUMN_PREVIEW_BIG + " BOOLEAN," +
+                    MultiredditEntry.COLUMN_PREVIEW_SELF + " BOOLEAN," +
+                    MultiredditEntry.COLUMN_THEME_PRIMARY + " INTEGER," +
+                    MultiredditEntry.COLUMN_THEME_ACCENT + " INTEGER)");
+            db.execSQL("CREATE INDEX ix_multis_user ON " + MultiredditEntry.TABLE_NAME + "(" +
+                    MultiredditEntry.COLUMN_USER + " COLLATE nocase)");
+
+            // TODO: Foreign keys
         }
 
         /* NOTES:
 
         entries recalled default all unhidden sorted in user order, optional bit flags to alter?
         e.g. RedditStorage.getSubreddit(), ...(RedditStorage.NO_NSFW|RedditStorage.ALL)
-
-        Naming scheme for non user tables, must be invalid ie "_guest" ?
 
          */
 
