@@ -75,12 +75,11 @@ public class Databases {
                     UserEntry.COLUMN_TYPE + " TEXT," +
                     UserEntry.COLUMN_SORT_NUMBER + " INTEGER," +
                     UserEntry.COLUMN_DETAIL_ID + " INTEGER)");
-            db.execSQL("CREATE INDEX ix_users_user_sort_detail ON " + UserEntry.TABLE_NAME + "(" +
+            db.execSQL("CREATE INDEX ix_users_user_sort_type_detail ON " + UserEntry.TABLE_NAME + "(" +
                     UserEntry.COLUMN_USER + " COLLATE nocase," +
+                    UserEntry.COLUMN_TYPE + "," +
                     UserEntry.COLUMN_SORT_NUMBER + "," +
                     UserEntry.COLUMN_DETAIL_ID + ")");
-            db.execSQL("CREATE INDEX ix_users_type ON " + UserEntry.TABLE_NAME + "(" +
-                    UserEntry.COLUMN_TYPE + ")");
 
             db.execSQL("CREATE TABLE " + SubredditEntry.TABLE_NAME + "(" +
                     SubredditEntry._ID + "INTEGER PRIMARY KEY," +
@@ -112,14 +111,14 @@ public class Databases {
                     MultiredditEntry.COLUMN_THEME_ACCENT + " INTEGER)");
             db.execSQL("CREATE INDEX ix_multis_user ON " + MultiredditEntry.TABLE_NAME + "(" +
                     MultiredditEntry.COLUMN_USER + " COLLATE nocase)");
-
-            // TODO: Foreign keys
         }
 
         /* NOTES:
 
         entries recalled default all unhidden sorted in user order, optional bit flags to alter?
         e.g. RedditStorage.getSubreddit(), ...(RedditStorage.NO_NSFW|RedditStorage.ALL)
+
+        Left outer join coalesce
 
          */
 
