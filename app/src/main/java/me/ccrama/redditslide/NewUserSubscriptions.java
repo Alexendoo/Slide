@@ -17,16 +17,22 @@
 
 package me.ccrama.redditslide;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
 
-public class Databases {
+import me.ccrama.redditslide.util.LogUtil;
+
+public class NewUserSubscriptions {
+    private static SQLiteDatabase db;
 
     private static abstract class UserEntry implements BaseColumns {
         public static final String TABLE_NAME = "users";
         public static final String COLUMN_USER = "user";
+        public static final String COLUMN_NAME = "name";
         public static final String COLUMN_TYPE = "type";
         public static final String COLUMN_SORT_NUMBER = "sort";
         public static final String COLUMN_DETAIL_ID = "detail_id";
@@ -58,12 +64,12 @@ public class Databases {
         public static final String COLUMN_PREVIEW_SELF = "preview_self";
     }
 
-    private class Reddits extends SQLiteOpenHelper {
+    private static class RedditsDbHelper extends SQLiteOpenHelper {
         public static final int DATABASE_VERSION = 1;
         // TODO: Final name
-        public static final String DATABASE_NAME = "reddits-001.db";
+        public static final String DATABASE_NAME = "reddits-004.db";
 
-        public Reddits(Context context) {
+        public RedditsDbHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
@@ -72,13 +78,14 @@ public class Databases {
             db.execSQL("CREATE TABLE " + UserEntry.TABLE_NAME + "(" +
                     UserEntry._ID + " INTEGER PRIMARY KEY," +
                     UserEntry.COLUMN_USER + " TEXT COLLATE nocase," +
+                    // TODO: Name in table or through JOIN?
                     UserEntry.COLUMN_TYPE + " TEXT," +
                     UserEntry.COLUMN_SORT_NUMBER + " INTEGER," +
                     UserEntry.COLUMN_DETAIL_ID + " INTEGER)");
             db.execSQL("CREATE INDEX ix_users_user_sort_type_detail ON " + UserEntry.TABLE_NAME + "(" +
                     UserEntry.COLUMN_USER + " COLLATE nocase," +
-                    UserEntry.COLUMN_TYPE + "," +
                     UserEntry.COLUMN_SORT_NUMBER + "," +
+                    UserEntry.COLUMN_TYPE + "," +
                     UserEntry.COLUMN_DETAIL_ID + ")");
 
             db.execSQL("CREATE TABLE " + SubredditEntry.TABLE_NAME + "(" +
@@ -109,8 +116,9 @@ public class Databases {
                     MultiredditEntry.COLUMN_PREVIEW_SELF + " BOOLEAN," +
                     MultiredditEntry.COLUMN_THEME_PRIMARY + " INTEGER," +
                     MultiredditEntry.COLUMN_THEME_ACCENT + " INTEGER)");
-            db.execSQL("CREATE INDEX ix_multis_user ON " + MultiredditEntry.TABLE_NAME + "(" +
-                    MultiredditEntry.COLUMN_USER + " COLLATE nocase)");
+            db.execSQL("CREATE INDEX ix_multis_user_name ON " + MultiredditEntry.TABLE_NAME + "(" +
+                    MultiredditEntry.COLUMN_USER + " COLLATE nocase," +
+                    MultiredditEntry.COLUMN_NAME + ")");
         }
 
         /* NOTES:
