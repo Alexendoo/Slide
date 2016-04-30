@@ -27,7 +27,7 @@ import android.provider.BaseColumns;
 import me.ccrama.redditslide.util.LogUtil;
 
 public class NewUserSubscriptions {
-    private static SQLiteDatabase db;
+    private static SQLiteDatabase mDatabase;
 
     private static abstract class UserEntry implements BaseColumns {
         public static final String TABLE_NAME = "users";
@@ -42,7 +42,7 @@ public class NewUserSubscriptions {
         public static final String TABLE_NAME = "subreddits";
         public static final String COLUMN_USER = "user";
         public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_STATUS = "status"; // Subscribed|Casual|Hidden|History
+        public static final String COLUMN_STATUS = "status"; // StoredSubreddit.Status
         public static final String COLUMN_NSFW = "nsfw";
         public static final String COLUMN_MODERATOR = "moderator";
         public static final String COLUMN_THEME_PRIMARY = "theme_primary";
@@ -67,7 +67,7 @@ public class NewUserSubscriptions {
     private static class RedditsDbHelper extends SQLiteOpenHelper {
         public static final int DATABASE_VERSION = 1;
         // TODO: Final name
-        public static final String DATABASE_NAME = "reddits-004.db";
+        public static final String DATABASE_NAME = "reddits-005.db";
 
         public RedditsDbHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -78,7 +78,7 @@ public class NewUserSubscriptions {
             db.execSQL("CREATE TABLE " + UserEntry.TABLE_NAME + "(" +
                     UserEntry._ID + " INTEGER PRIMARY KEY," +
                     UserEntry.COLUMN_USER + " TEXT COLLATE nocase," +
-                    // TODO: Name in table or through JOIN?
+                    UserEntry.COLUMN_NAME + " TEXT COLLATE nocase," +
                     UserEntry.COLUMN_TYPE + " TEXT," +
                     UserEntry.COLUMN_SORT_NUMBER + " INTEGER," +
                     UserEntry.COLUMN_DETAIL_ID + " INTEGER)");
@@ -118,7 +118,7 @@ public class NewUserSubscriptions {
                     MultiredditEntry.COLUMN_THEME_ACCENT + " INTEGER)");
             db.execSQL("CREATE INDEX ix_multis_user_name ON " + MultiredditEntry.TABLE_NAME + "(" +
                     MultiredditEntry.COLUMN_USER + " COLLATE nocase," +
-                    MultiredditEntry.COLUMN_NAME + ")");
+                    MultiredditEntry.COLUMN_NAME + " COLLATE nocase)");
         }
 
         /* NOTES:
