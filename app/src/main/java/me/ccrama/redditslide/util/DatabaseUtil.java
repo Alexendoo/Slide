@@ -15,25 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.ccrama.redditslide;
+package me.ccrama.redditslide.util;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
 
-import me.ccrama.redditslide.util.LogUtil;
-
-public class NewUserSubscriptions {
+public class DatabaseUtil {
     private static SQLiteDatabase mDatabase;
 
     private static abstract class UserEntry implements BaseColumns {
         public static final String TABLE_NAME = "users";
+        public static final String COLUMN_NAME = "name";
+    }
+
+    private static abstract class SortingEntry implements BaseColumns {
+        public static final String TABLE_NAME = "sorting";
         public static final String COLUMN_USER = "user";
         public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_MULTI = "multi";
         public static final String COLUMN_SORT_NUMBER = "sort";
         public static final String COLUMN_DETAIL_ID = "detail_id";
     }
@@ -42,7 +43,8 @@ public class NewUserSubscriptions {
         public static final String TABLE_NAME = "subreddits";
         public static final String COLUMN_USER = "user";
         public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_STATUS = "status"; // StoredSubreddit.Status
+        public static final String COLUMN_SUBSCRIBED = "subscribed";
+        public static final String COLUMN_HIDDEN = "hidden";
         public static final String COLUMN_NSFW = "nsfw";
         public static final String COLUMN_MODERATOR = "moderator";
         public static final String COLUMN_THEME_PRIMARY = "theme_primary";
@@ -67,7 +69,7 @@ public class NewUserSubscriptions {
     private static class RedditsDbHelper extends SQLiteOpenHelper {
         public static final int DATABASE_VERSION = 1;
         // TODO: Final name
-        public static final String DATABASE_NAME = "reddits-005.db";
+        public static final String DATABASE_NAME = "slide.db";
 
         public RedditsDbHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -77,56 +79,67 @@ public class NewUserSubscriptions {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("CREATE TABLE " + UserEntry.TABLE_NAME + "(" +
                     UserEntry._ID + " INTEGER PRIMARY KEY," +
-                    UserEntry.COLUMN_USER + " TEXT COLLATE nocase," +
-                    UserEntry.COLUMN_NAME + " TEXT COLLATE nocase," +
-                    UserEntry.COLUMN_TYPE + " TEXT," +
-                    UserEntry.COLUMN_SORT_NUMBER + " INTEGER," +
-                    UserEntry.COLUMN_DETAIL_ID + " INTEGER)");
-            db.execSQL("CREATE INDEX ix_users_user_sort_type_detail ON " + UserEntry.TABLE_NAME + "(" +
-                    UserEntry.COLUMN_USER + " COLLATE nocase," +
-                    UserEntry.COLUMN_SORT_NUMBER + "," +
-                    UserEntry.COLUMN_TYPE + "," +
-                    UserEntry.COLUMN_DETAIL_ID + ")");
+                    UserEntry.COLUMN_NAME + " TEXT COLLATE NOCASE)");
+
+            db.execSQL("CREATE INDEX ix_users_name ON " + UserEntry.TABLE_NAME + "(" +
+                    UserEntry.COLUMN_NAME + " COLLATE NOCASE)");
+
+
+            db.execSQL("CREATE TABLE " + SortingEntry.TABLE_NAME + "(" +
+                    SortingEntry._ID + " INTEGER PRIMARY KEY," +
+                    SortingEntry.COLUMN_USER + " REFERENCES users(name)," +
+                    SortingEntry.COLUMN_NAME + " TEXT COLLATE nocase," +
+                    SortingEntry.COLUMN_MULTI + " BOOLEAN," +
+                    SortingEntry.COLUMN_SORT_NUMBER + " INTEGER," +
+                    SortingEntry.COLUMN_DETAIL_ID + " INTEGER)");
+
+            db.execSQL("CREATE INDEX ix_sorting_user_sort_type_detail ON " + SortingEntry.TABLE_NAME + "(" +
+                    SortingEntry.COLUMN_USER + "," +
+                    SortingEntry.COLUMN_SORT_NUMBER + "," +
+                    SortingEntry.COLUMN_MULTI + "," +
+                    SortingEntry.COLUMN_DETAIL_ID + ")");
+
 
             db.execSQL("CREATE TABLE " + SubredditEntry.TABLE_NAME + "(" +
                     SubredditEntry._ID + "INTEGER PRIMARY KEY," +
-                    SubredditEntry.COLUMN_USER + " TEXT COLLATE nocase," +
-                    SubredditEntry.COLUMN_NAME + " TEXT COLLATE nocase," +
-                    SubredditEntry.COLUMN_STATUS + " TEXT," +
-                    SubredditEntry.COLUMN_NSFW + " BOOLEAN," +
+                    SubredditEntry.COLUMN_USER + " REFERENCES users(name)" +
+                    SubredditEntry.COLUMN_NAME + " TEXT COLLATE nocase" +
+                    SubredditEntry.COLUMN_SUBSCRIBED + " BOOLEAN," +
+                    SubredditEntry.COLUMN_HIDDEN + " BOOLEAN," +
                     SubredditEntry.COLUMN_MODERATOR + " BOOLEAN," +
+                    SubredditEntry.COLUMN_NSFW + " BOOLEAN," +
                     SubredditEntry.COLUMN_PREVIEW_BIG + " BOOLEAN," +
                     SubredditEntry.COLUMN_PREVIEW_SELF + " BOOLEAN," +
                     SubredditEntry.COLUMN_THEME_PRIMARY + " INTEGER," +
                     SubredditEntry.COLUMN_THEME_ACCENT + " INTEGER," +
                     SubredditEntry.COLUMN_MOBILE_COLOR + " INTEGER)");
-            db.execSQL("CREATE INDEX ix_subs_user_status_name ON " + SubredditEntry.TABLE_NAME + "(" +
-                    SubredditEntry.COLUMN_USER + " COLLATE nocase," +
-                    SubredditEntry.COLUMN_STATUS + "," +
+
+            db.execSQL("CREATE INDEX ix_subs_user_name ON " + SubredditEntry.TABLE_NAME + "(" +
+                    SubredditEntry.COLUMN_USER + "," +
                     SubredditEntry.COLUMN_NAME + " COLLATE nocase)");
+
             db.execSQL("CREATE INDEX ix_subs_mod ON " + SubredditEntry.TABLE_NAME + "(" +
                     SubredditEntry.COLUMN_MODERATOR + ")");
 
+
             db.execSQL("CREATE TABLE " + MultiredditEntry.TABLE_NAME + "(" +
-                    MultiredditEntry.COLUMN_USER + " TEXT COLLATE nocase," +
-                    MultiredditEntry.COLUMN_NAME + " TEXT COLLATE nocase," +
-                    MultiredditEntry.COLUMN_PATH + " TEXT COLLATE nocase," +
+                    MultiredditEntry.COLUMN_USER + " REFERENCES users(name)" +
+                    MultiredditEntry.COLUMN_NAME + " TEXT COLLATE nocase" +
+                    MultiredditEntry.COLUMN_PATH + " TEXT," +
                     MultiredditEntry.COLUMN_OWNER + " TEXT COLLATE nocase," +
                     MultiredditEntry.COLUMN_PREVIEW_BIG + " BOOLEAN," +
                     MultiredditEntry.COLUMN_PREVIEW_SELF + " BOOLEAN," +
                     MultiredditEntry.COLUMN_THEME_PRIMARY + " INTEGER," +
                     MultiredditEntry.COLUMN_THEME_ACCENT + " INTEGER)");
+
             db.execSQL("CREATE INDEX ix_multis_user_name ON " + MultiredditEntry.TABLE_NAME + "(" +
-                    MultiredditEntry.COLUMN_USER + " COLLATE nocase," +
+                    MultiredditEntry.COLUMN_USER + "," +
                     MultiredditEntry.COLUMN_NAME + " COLLATE nocase)");
         }
 
         /* NOTES:
 
-        entries recalled default all unhidden sorted in user order, optional bit flags to alter?
-        e.g. RedditStorage.getSubreddit(), ...(RedditStorage.NO_NSFW|RedditStorage.ALL)
-
-        Left outer join coalesce
+        entries recalled default all unhidden sorted in user order
 
          */
 

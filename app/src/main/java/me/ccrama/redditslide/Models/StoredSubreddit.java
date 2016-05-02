@@ -24,11 +24,44 @@ import net.dean.jraw.models.Subreddit;
 import java.util.EnumSet;
 
 public class StoredSubreddit {
-    public StoredSubreddit(Subreddit subreddit, @Nullable String user, @Nullable EnumSet<Flags> status) {
+    private EnumSet<Flags> flags = EnumSet.noneOf(Flags.class);
+    private String name;
 
+    public StoredSubreddit(Subreddit subreddit, @Nullable String user, @Nullable EnumSet<Flags> flags) {
+        if (flags != null)
+            this.flags.addAll(flags);
+
+        if (subreddit.isNsfw())
+            this.flags.add(Flags.NSFW);
+        if (subreddit.isUserSubscriber())
+            this.flags.add(Flags.SUBSCRIBER);
+        if (subreddit.isUserModerator())
+            this.flags.add(Flags.MODERATOR);
+
+        this.name = subreddit.getDisplayName();
+    }
+
+    public Boolean isNsfw() {
+        return flags.contains(Flags.NSFW);
+    }
+
+    public Boolean isUserSubscriber() {
+        return flags.contains(Flags.SUBSCRIBER);
+    }
+
+    public Boolean isUserModerator() {
+        return flags.contains(Flags.MODERATOR);
+    }
+
+    public Boolean isHidden() {
+        return flags.contains(Flags.HIDDEN);
+    }
+
+    public Boolean isCasual() {
+        return flags.contains(Flags.CASUAL);
     }
 
     public enum Flags {
-        SUBSCRIBED, CASUAL, HIDDEN, HISTORY
+        SUBSCRIBER, CASUAL, HIDDEN, HISTORY, NSFW, MODERATOR
     }
 }
