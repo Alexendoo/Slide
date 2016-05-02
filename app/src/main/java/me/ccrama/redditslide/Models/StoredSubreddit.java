@@ -21,12 +21,14 @@ import android.support.annotation.Nullable;
 
 import net.dean.jraw.models.Subreddit;
 
+import java.util.EnumSet;
+
 public class StoredSubreddit {
-    public StoredSubreddit(Subreddit subreddit, @Nullable String user, Status status) {
+    public StoredSubreddit(Subreddit subreddit, @Nullable String user, @Nullable EnumSet<Flags> status) {
 
     }
 
-    public enum Status {
+    public enum Flags {
         SUBSCRIBED, CASUAL, HIDDEN, HISTORY
     }
 }
