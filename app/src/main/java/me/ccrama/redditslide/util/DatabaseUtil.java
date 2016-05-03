@@ -24,12 +24,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import java.util.Set;
+
 import me.ccrama.redditslide.Models.StorableSubreddit;
 
 public class DatabaseUtil {
     private static SQLiteDatabase mDatabase;
 
-    public static int getUserIdByName(String name) {
+    /**
+     * Look up a user's ID by their name
+     *
+     * @param name The name to look up
+     * @return the user ID
+     */
+    public static long getUserIdByName(String name) {
         String[] columns = {
                 UserEntry._ID
         };
@@ -49,8 +57,10 @@ public class DatabaseUtil {
                 null
         );
         cursor.moveToFirst();
+        long userId = cursor.getLong(0);
+        cursor.close();
 
-        return cursor.getInt(0);
+        return userId;
     }
 
     public static SQLiteDatabase init(Context context) {
@@ -67,7 +77,7 @@ public class DatabaseUtil {
 
     public static long storeSubreddit(StorableSubreddit subreddit) {
         ContentValues values = new ContentValues();
-        values.put(SubredditEntry.COLUMN_USER_ID, subreddit.getUserId());
+        values.put(SubredditEntry.COLUMN_USER_ID, getUserIdByName(subreddit.getUsername()));
         values.put(SubredditEntry.COLUMN_NAME, subreddit.getName());
         values.put(SubredditEntry.COLUMN_SUBSCRIBED, subreddit.isUserSubscriber());
         values.put(SubredditEntry.COLUMN_CASUAL, subreddit.isCasual());
@@ -91,7 +101,6 @@ public class DatabaseUtil {
     private static abstract class SortingEntry implements BaseColumns {
         public static final String TABLE_NAME = "sorting";
         public static final String COLUMN_USER_ID = "user_id";
-        public static final String COLUMN_NAME = "name";
         public static final String COLUMN_MULTI = "multi";
         public static final String COLUMN_SORT_NUMBER = "sort";
         public static final String COLUMN_DETAIL_ID = "detail_id";
@@ -150,7 +159,6 @@ public class DatabaseUtil {
             db.execSQL("CREATE TABLE " + SortingEntry.TABLE_NAME + "(" +
                     SortingEntry._ID + " INTEGER PRIMARY KEY," +
                     SortingEntry.COLUMN_USER_ID + userReference +
-                    SortingEntry.COLUMN_NAME + " TEXT COLLATE nocase," +
                     SortingEntry.COLUMN_MULTI + " BOOLEAN," +
                     SortingEntry.COLUMN_SORT_NUMBER + " INTEGER," +
                     SortingEntry.COLUMN_DETAIL_ID + " INTEGER)");

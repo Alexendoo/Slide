@@ -15,24 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.ccrama.redditslide.Models;
+package me.ccrama.redditslide.util;
 
-public abstract class Storable {
-    protected Boolean stored = false;
-    protected long rowId = -1;
+import java.util.Set;
 
-    /**
-     * Returns true if the subreddit is stored in the database, false otherwise
-     *
-     * @return true if the subreddit is stored in the database, false otherwise
-     */
-    public Boolean isStored() {
-        return stored;
+import me.ccrama.redditslide.Models.StorableSubreddit;
+
+public class NewUserSubscriptions {
+    public Set<StorableSubreddit> getMainSubreddits(String user) {
+        return null;
     }
-
-    public long getRowId() {
-        return rowId;
-    }
-
-    public abstract long store();
 }
