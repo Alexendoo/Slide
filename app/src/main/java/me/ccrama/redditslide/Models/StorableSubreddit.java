@@ -25,12 +25,12 @@ import java.util.EnumSet;
 
 import me.ccrama.redditslide.util.DatabaseUtil;
 
-public class StoredSubreddit {
+public class StorableSubreddit extends Storable {
     private EnumSet<Flags> flags = EnumSet.noneOf(Flags.class);
     private String name;
-    private int user;
+    private long user = -1;
 
-    public StoredSubreddit(Subreddit subreddit, @Nullable String user, @Nullable EnumSet<Flags> flags) {
+    public StorableSubreddit(Subreddit subreddit, @Nullable String user, @Nullable EnumSet<Flags> flags) {
         if (flags != null) {
             this.flags.addAll(flags);
         }
@@ -48,14 +48,27 @@ public class StoredSubreddit {
         if (user != null) {
             this.user = DatabaseUtil.getUserIdByName(name);
         }
-        DatabaseUtil.storeSubreddit(this);
+    }
+
+    /**
+     * Store the subreddit in the database
+     *
+     * @return The row ID of the stored subreddit, or -1 if an error occurred
+     */
+    @Override
+    public long store() {
+        rowId = DatabaseUtil.storeSubreddit(this);
+        if (rowId != -1) {
+            stored = true;
+        }
+        return rowId;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return user;
     }
 

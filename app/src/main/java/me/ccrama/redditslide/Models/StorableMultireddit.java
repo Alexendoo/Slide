@@ -17,5 +17,9 @@
 
 package me.ccrama.redditslide.Models;
 
-public class StoredMultireddit {
+public class StorableMultireddit extends Storable {
+    @Override
+    public long store() {
+        return -1;
+    }
 }

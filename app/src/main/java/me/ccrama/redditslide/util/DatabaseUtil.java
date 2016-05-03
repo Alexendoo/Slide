@@ -24,7 +24,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
-import me.ccrama.redditslide.Models.StoredSubreddit;
+import me.ccrama.redditslide.Models.StorableSubreddit;
 
 public class DatabaseUtil {
     private static SQLiteDatabase mDatabase;
@@ -65,7 +65,7 @@ public class DatabaseUtil {
         return mDatabase;
     }
 
-    public static long storeSubreddit(StoredSubreddit subreddit) {
+    public static long storeSubreddit(StorableSubreddit subreddit) {
         ContentValues values = new ContentValues();
         values.put(SubredditEntry.COLUMN_USER_ID, subreddit.getUserId());
         values.put(SubredditEntry.COLUMN_NAME, subreddit.getName());
