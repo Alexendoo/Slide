@@ -38,10 +38,10 @@ public class DatabaseUtil {
      * @return the user ID
      */
     public static long getUserIdByName(String name) {
-        String[] columns = {
+        final String[] columns = {
                 UserEntry._ID
         };
-        String[] selectionArgs = {
+        final String[] selectionArgs = {
                 name
         };
 
@@ -91,6 +91,23 @@ public class DatabaseUtil {
                 null,
                 values
         );
+    }
+
+    public static Cursor getMainSubreddits(String user) {
+        final String[] columns = {
+                SubredditEntry._ID,
+                SubredditEntry.COLUMN_USER_ID,
+                SubredditEntry.COLUMN_NAME,
+                SubredditEntry.COLUMN_SUBSCRIBED,
+                SubredditEntry.COLUMN_CASUAL,
+                SubredditEntry.COLUMN_HIDDEN,
+                SubredditEntry.COLUMN_NSFW,
+                SubredditEntry.COLUMN_MODERATOR
+        };
+
+
+
+        return null;
     }
 
     private static abstract class UserEntry implements BaseColumns {

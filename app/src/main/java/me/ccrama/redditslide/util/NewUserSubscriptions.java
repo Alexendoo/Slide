@@ -17,12 +17,17 @@
 
 package me.ccrama.redditslide.util;
 
-import java.util.Set;
+import android.database.Cursor;
 
+import java.util.List;
+
+import me.ccrama.redditslide.Authentication;
 import me.ccrama.redditslide.Models.StorableSubreddit;
 
 public class NewUserSubscriptions {
-    public Set<StorableSubreddit> getMainSubreddits(String user) {
+    public static List<StorableSubreddit> getMainSubreddits() {
+        Cursor cursor = DatabaseUtil.getMainSubreddits(Authentication.name);
+
         return null;
     }
 }
