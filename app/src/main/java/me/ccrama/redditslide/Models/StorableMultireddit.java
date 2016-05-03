@@ -17,7 +17,22 @@
 
 package me.ccrama.redditslide.Models;
 
-public class StorableMultireddit extends Storable {
+public class StorableMultireddit implements Storable {
+    @Override
+    public Boolean isStored() {
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public long getRowId() {
+        return -1;
+    }
+
     @Override
     public long store() {
         return -1;

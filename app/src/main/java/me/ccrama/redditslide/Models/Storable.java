@@ -17,22 +17,12 @@
 
 package me.ccrama.redditslide.Models;
 
-public abstract class Storable {
-    protected Boolean stored = false;
-    protected long rowId = -1;
+public interface Storable {
+    Boolean isStored();
 
-    /**
-     * Returns true if the subreddit is stored in the database, false otherwise
-     *
-     * @return true if the subreddit is stored in the database, false otherwise
-     */
-    public Boolean isStored() {
-        return stored;
-    }
+    String getName();
 
-    public long getRowId() {
-        return rowId;
-    }
+    long getRowId();
 
-    public abstract long store();
+    long store();
 }

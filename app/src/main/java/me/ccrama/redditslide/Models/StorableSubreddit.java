@@ -26,8 +26,9 @@ import java.util.EnumSet;
 import me.ccrama.redditslide.util.DatabaseUtil;
 
 
-public class StorableSubreddit extends Storable {
+public class StorableSubreddit implements Storable {
     private EnumSet<Flags> flags = EnumSet.noneOf(Flags.class);
+    private long rowId;
     private String name;
     private String username;
 
@@ -65,15 +66,15 @@ public class StorableSubreddit extends Storable {
      * @param username The username of the user the subreddit belongs to, or null to add a default
      *                 subreddit. (Note: belonging to a user doesn't mean subscribed)
      * @param flags A set of {@link #flags}, or null for no flags
-     * @param stored True if the subreddit exists in the database
+     * @param rowId The row ID of the subreddit, or -1 if it is not in the database
      */
-    public StorableSubreddit(String name, @Nullable String username, @Nullable EnumSet<Flags> flags, Boolean stored) {
+    public StorableSubreddit(String name, @Nullable String username, @Nullable EnumSet<Flags> flags, long rowId) {
         if (flags != null) {
             this.flags.addAll(flags);
         }
 
         this.name = name;
-        this.stored = stored;
+        this.rowId = rowId;
         this.username = username;
     }
 
@@ -84,9 +85,8 @@ public class StorableSubreddit extends Storable {
      */
     @Override
     public long store() {
-        if (rowId != -1) {
+        if (!isStored()) {
             rowId = DatabaseUtil.storeSubreddit(this);
-            stored = true;
         }
         return rowId;
     }
@@ -100,6 +100,17 @@ public class StorableSubreddit extends Storable {
         return name;
     }
 
+
+    /**
+     * Returns the row ID the subreddit is stored at in the subreddit, or -1 if it is not stored
+     *
+     * @return the row ID the subreddit is stored at in the subreddit, or -1 if it is not stored
+     */
+    @Override
+    public long getRowId() {
+        return rowId;
+    }
+
     /**
      * Returns the user's name that the subreddit is related to, for instance a subscription or
      * history of theirs
@@ -108,6 +119,16 @@ public class StorableSubreddit extends Storable {
      */
     public String getUsername() {
         return username;
+    }
+
+    /**
+     * Returns true if the subreddit is stored in the database
+     *
+     * @return true if the subreddit is stored in the database
+     */
+    @Override
+    public Boolean isStored() {
+        return rowId != -1;
     }
 
     /**
