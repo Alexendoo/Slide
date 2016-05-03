@@ -47,6 +47,7 @@ import me.ccrama.redditslide.Autocache.AutoCacheScheduler;
 import me.ccrama.redditslide.Notifications.NotificationJobScheduler;
 import me.ccrama.redditslide.util.AlbumUtils;
 import me.ccrama.redditslide.util.CustomTabUtil;
+import me.ccrama.redditslide.util.DatabaseUtil;
 import me.ccrama.redditslide.util.IabHelper;
 import me.ccrama.redditslide.util.IabResult;
 import me.ccrama.redditslide.util.LogUtil;
@@ -514,6 +515,7 @@ public class Reddit extends MultiDexApplication implements Application.ActivityL
         colors = getSharedPreferences("COLOR", 0);
         tags = getSharedPreferences("TAGS", 0);
         KVStore.init(this, "SEEN");
+        DatabaseUtil.init(this);
 
         lastposition = new ArrayList<>();
 

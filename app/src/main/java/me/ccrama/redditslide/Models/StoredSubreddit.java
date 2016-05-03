@@ -23,22 +23,40 @@ import net.dean.jraw.models.Subreddit;
 
 import java.util.EnumSet;
 
+import me.ccrama.redditslide.util.DatabaseUtil;
+
 public class StoredSubreddit {
     private EnumSet<Flags> flags = EnumSet.noneOf(Flags.class);
     private String name;
+    private int user;
 
     public StoredSubreddit(Subreddit subreddit, @Nullable String user, @Nullable EnumSet<Flags> flags) {
-        if (flags != null)
+        if (flags != null) {
             this.flags.addAll(flags);
-
-        if (subreddit.isNsfw())
+        }
+        if (subreddit.isNsfw()) {
             this.flags.add(Flags.NSFW);
-        if (subreddit.isUserSubscriber())
+        }
+        if (subreddit.isUserSubscriber()) {
             this.flags.add(Flags.SUBSCRIBER);
-        if (subreddit.isUserModerator())
+        }
+        if (subreddit.isUserModerator()) {
             this.flags.add(Flags.MODERATOR);
+        }
 
         this.name = subreddit.getDisplayName();
+        if (user != null) {
+            this.user = DatabaseUtil.getUserIdByName(name);
+        }
+        DatabaseUtil.storeSubreddit(this);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getUserId() {
+        return user;
     }
 
     public Boolean isNsfw() {
