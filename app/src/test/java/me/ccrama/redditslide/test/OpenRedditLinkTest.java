@@ -22,13 +22,17 @@ public class OpenRedditLinkTest {
     @Test
     public void detectsShortened() {
         assertThat(getType(formatURL("https://redd.it/eorhm/")), is(RedditLinkType.SHORTENED));
+        assertThat(getType(formatURL("redd.it/eorhm")), is(RedditLinkType.SHORTENED));
     }
 
     @Test
     public void detectsWiki() {
         assertThat(getType(formatURL("https://www.reddit.com/r/Android/wiki/index")), is(RedditLinkType.WIKI));
         assertThat(getType(formatURL("https://www.reddit.com/r/Android/help")), is(RedditLinkType.WIKI));
+        assertThat(getType(formatURL("https://www.reddit.com/r/Android/w/rulesandregs/")), is(RedditLinkType.WIKI));
         assertThat(getType(formatURL("https://reddit.com/help")), is(RedditLinkType.WIKI));
+        assertThat(getType(formatURL("https://reddit.com/wiki")), is(RedditLinkType.WIKI));
+        assertThat(getType(formatURL("https://reddit.com/w/")), is(RedditLinkType.WIKI));
     }
 
     @Test

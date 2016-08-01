@@ -332,28 +332,28 @@ public class OpenRedditLink {
             return RedditLinkType.SHORTENED;
         } else if (url.matches("(?i)reddit\\.com/live/[^/]*")) {
             return RedditLinkType.LIVE;
-        } else if (url.matches("(?i)reddit\\.com(?:/r/[a-z0-9-_.]+)?/(?:wiki|help).*")) {
+        } else if (url.matches("(?i)reddit\\.com(?:/r/[a-z0-9-_.]++)?/(?>wiki|w|help)(?>$|/.*)")) {
             // Wiki link. Format: reddit.com/r/$subreddit/wiki/$page [optional]
             return RedditLinkType.WIKI;
-        } else if (url.matches("(?i)reddit\\.com/r/[a-z0-9-_.]+/about.*")) {
+        } else if (url.matches("(?i)reddit\\.com/r/[a-z0-9-_.]++/about.*")) {
             // Unhandled link. Format: reddit.com/r/$subreddit/about/$page [optional]
             return RedditLinkType.OTHER;
-        } else if (url.matches("(?i)reddit\\.com/r/[a-z0-9-_.]+/search.*")) {
+        } else if (url.matches("(?i)reddit\\.com/r/[a-z0-9-_.]++/search.*")) {
             // Wiki link. Format: reddit.com/r/$subreddit/search?q= [optional]
             return RedditLinkType.SEARCH;
-        } else if (url.matches("(?i)reddit\\.com/r/[a-z0-9-_.]+/comments/\\w+/\\w*/.*")) {
+        } else if (url.matches("(?i)reddit\\.com/r/[a-z0-9-_.]++/comments/\\w++/\\w*+/.*")) {
             // Permalink to comments. Format: reddit.com/r/$subreddit/comments/$post_id/$post_title [can be empty]/$comment_id
             return RedditLinkType.COMMENT_PERMALINK;
-        } else if (url.matches("(?i)reddit\\.com/r/[a-z0-9-_.]+/comments/\\w+.*")) {
+        } else if (url.matches("(?i)reddit\\.com/r/[a-z0-9-_.]++/comments/.+")) {
             // Submission. Format: reddit.com/r/$subreddit/comments/$post_id/$post_title [optional]
             return RedditLinkType.SUBMISSION;
-        } else if (url.matches("(?i)reddit\\.com/comments/\\w+.*")) {
+        } else if (url.matches("(?i)reddit\\.com/comments/.+")) {
             // Submission without a given subreddit. Format: reddit.com/comments/$post_id/$post_title [optional]
             return RedditLinkType.SUBMISSION_WITHOUT_SUB;
-        } else if (url.matches("(?i)reddit\\.com/r/[a-z0-9-_.]+.*")) {
+        } else if (url.matches("(?i)reddit\\.com/r/.+")) {
             // Subreddit. Format: reddit.com/r/$subreddit/$sort [optional]
             return RedditLinkType.SUBREDDIT;
-        } else if (url.matches("(?i)reddit\\.com/u(?:ser)?/[a-z0-9-_]+.*")) {
+        } else if (url.matches("(?i)reddit\\.com/u(?:ser)?/.+")) {
             // User. Format: reddit.com/u [or user]/$username/$page [optional]
             return RedditLinkType.USER;
         } else {
