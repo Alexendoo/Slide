@@ -26,6 +26,8 @@ public class OpenContent extends Activity {
         Bundle extras = intent.getExtras();
         String url;
 
+        OpenRedditLink.openUrl(this, data);
+
         if (data != null) {
             url = data.toString();
         } else if (extras != null) {

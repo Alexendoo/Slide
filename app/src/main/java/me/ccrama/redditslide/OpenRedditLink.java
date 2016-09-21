@@ -3,6 +3,7 @@ package me.ccrama.redditslide;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
 import java.util.Arrays;
 
@@ -25,6 +26,11 @@ public class OpenRedditLink {
 
     public OpenRedditLink(Context context, String url, boolean openIfOther) {
         openUrl(context, url, openIfOther);
+    }
+
+    public static boolean openUrl(Context context, Uri uri) {
+        getRedditLinkType(uri);
+        return false;
     }
 
     //Returns true if link was in fact handled by this method. If false, further action should be taken
@@ -306,6 +312,40 @@ public class OpenRedditLink {
         }
 
         return url;
+    }
+
+    public static Uri formatRedditUri(Uri uri) {
+        Uri.Builder builder = uri.buildUpon();
+        builder.scheme("https");
+
+        String host = uri.getHost();
+        String[] hostParts = host.split("\\.");
+        for (int i = 0; i < hostParts.length; i++) {
+
+        }
+
+        // int i = 0; i < .length-2? + StringBuilder
+
+        return null;
+    }
+
+    /**
+     * Determines the reddit link type
+     *
+     * @param uri Reddit.com uri
+     * @return LinkType
+     */
+    public static RedditLinkType getRedditLinkType(Uri uri) {
+        final String path = uri.getEncodedPath();
+        final String host = uri.getHost();
+        final Uri formattedUri = formatRedditUri(uri);
+
+
+        if (path == null) return RedditLinkType.OTHER;
+
+
+
+        return RedditLinkType.OTHER;
     }
 
     /**
