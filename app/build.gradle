@@ -1,13 +1,13 @@
 plugins {
-    id 'com.gladed.androidgitversion' version '0.4.5'
-    id 'com.github.ben-manes.versions' version '0.20.0'
+    id 'com.gladed.androidgitversion' version '0.4.10'
+    id 'com.github.ben-manes.versions' version '0.25.0'
     id 'com.android.application'
     id 'com.devspark.robototextview.gradle-plugin'
 }
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "me.ccrama.redditslide"
@@ -17,6 +17,7 @@ android {
         versionName androidGitVersion.name()
 
         multiDexEnabled = true
+        vectorDrawables.useSupportLibrary = true
     }
 
     flavorDimensions "variant"
@@ -32,28 +33,17 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue "string", "app_name", "Slide"
         }
         debug {
             applicationIdSuffix ".debug"
             resValue "string", "app_name", "Slide Debug"
         }
-
     }
 
     packagingOptions {
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/dependencies.txt'
-        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/*'
     }
 
     compileOptions {
@@ -92,11 +82,11 @@ robototextview {
 ext {
     supportLibVersion = '28.0.0'
     robolectricVersion = '4.3'
-    powerMockitoVersion = '1.7.4' //2.0.0-RC.3
+    powerMockitoVersion = '1.7.4'
 }
 
 dependencies {
-    withGPlayImplementation 'com.google.android.gms:play-services-drive:10.2.6' //16.0.0
+    withGPlayImplementation 'com.google.android.gms:play-services-drive:10.2.6'
 
     implementation 'com.github.ccrama:JRAW:07c395b4df'
     implementation 'com.github.ccrama:AndroidVideoCache:483e44579d'
@@ -115,37 +105,36 @@ dependencies {
     implementation "com.android.support:interpolator:${supportLibVersion}"
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation 'com.google.guava:guava:23.6.1-android' //27.0-android
+    implementation 'com.google.guava:guava:23.6.1-android'
     //Updating material-dialogs to any newer version will break all AlertDialogWrapper
     //noinspection GradleDependency
-    implementation 'com.afollestad.material-dialogs:commons:0.8.6.2' //0.9.6.0
+    implementation 'com.afollestad.material-dialogs:commons:0.8.6.2'
     implementation 'com.jakewharton:process-phoenix:2.0.0'
     implementation 'org.ligi:snackengage:0.5'
     implementation 'com.github.rey5137:material:1.2.4'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.6.0' //3.10.0
-    implementation 'com.cocosw:bottomsheet:1.3.0@aar'
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.6.0'
+    implementation 'com.cocosw:bottomsheet:1.4.0@aar'
     implementation 'com.lusfold.androidkeyvaluestore:library:0.1.0@aar'
-    implementation 'org.apache.commons:commons-lang3:3.5' //3.8.1
-    implementation 'org.apache.commons:commons-text:1.4' //1.6
+    implementation 'org.apache.commons:commons-lang3:3.5'
+    implementation 'org.apache.commons:commons-text:1.4'
     implementation 'commons-io:commons-io:2.6'
     implementation 'jp.wasabeef:blurry:2.1.1'
     implementation 'com.github.johnkil.android-robototextview:robototextview:4.0.0'
-    implementation 'com.makeramen:roundedimageview:2.2.1' //2.3.0
+    implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
-    implementation 'com.sothree.slidinguppanel:library:3.3.1' //3.4.0
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
     implementation 'com.github.suckgamony.RapidDecoder:library:7cdfca47fa'
     implementation 'com.github.dasar:shiftcolorpicker:v0.5'
-    implementation 'com.squareup.okhttp3:okhttp:3.7.0' //3.11.0
+    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
     implementation 'com.google.code.gson:gson:2.8.5'
-
-    implementation 'com.github.ozodrukh:CircularReveal:1.3.1' //2.1.0
-    implementation 'org.jetbrains:annotations-java5:15.0' //16.0.3
-    implementation 'com.mikepenz:itemanimators:1.0.2@aar' //1.1.0
-    implementation 'com.neovisionaries:nv-websocket-client:1.31' //2.6
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.3.1' //2.8.0
+    implementation 'com.github.ozodrukh:CircularReveal:1.3.1'
+    compileOnly 'org.jetbrains:annotations:17.0.0'
+    implementation 'com.mikepenz:aboutlibraries:5.8.5'
+    implementation 'com.mikepenz:itemanimators:1.0.2@aar'
+    implementation 'com.neovisionaries:nv-websocket-client:1.31'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.3.1'
     implementation 'me.everything:overscroll-decor-android:1.0.4'
-    implementation 'com.mikepenz:aboutlibraries:5.8.5' //5.9.0, 5.9.8, 6.0.0
     implementation 'com.googlecode.mp4parser:isoparser:1.1.22'
 
     testImplementation 'junit:junit:4.12'
