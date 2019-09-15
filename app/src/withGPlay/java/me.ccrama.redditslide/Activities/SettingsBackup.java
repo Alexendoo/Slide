@@ -8,7 +8,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.Snackbar;
+
+import com.google.android.material.R.id;
+import com.google.android.material.snackbar.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -334,9 +336,9 @@ public class SettingsBackup extends BaseActivityAnim
                     } else {
                         progress.hide();
                         new AlertDialogWrapper.Builder(SettingsBackup.this).setTitle(
-                                getString(me.ccrama.redditslide.R.string.err_not_valid_backup))
+                                getString(R.string.err_not_valid_backup))
                                 .setMessage(getString(
-                                        me.ccrama.redditslide.R.string.err_not_valid_backup_msg))
+                                        R.string.err_not_valid_backup_msg))
                                 .setPositiveButton(R.string.btn_ok, null)
                                 .setCancelable(false)
                                 .show();
@@ -345,9 +347,9 @@ public class SettingsBackup extends BaseActivityAnim
                     progress.hide();
                     e.printStackTrace();
                     new AlertDialogWrapper.Builder(SettingsBackup.this).setTitle(
-                            getString(me.ccrama.redditslide.R.string.err_file_not_found))
+                            getString(R.string.err_file_not_found))
                             .setMessage(getString(
-                                    me.ccrama.redditslide.R.string.err_file_not_found_msg))
+                                    R.string.err_file_not_found_msg))
                             .setPositiveButton(R.string.btn_ok, null)
                             .setCancelable(false)
                             .show();
@@ -355,9 +357,9 @@ public class SettingsBackup extends BaseActivityAnim
             } else {
                 progress.dismiss();
                 new AlertDialogWrapper.Builder(SettingsBackup.this).setTitle(
-                        getString(me.ccrama.redditslide.R.string.err_file_not_found))
+                        getString(R.string.err_file_not_found))
                         .setMessage(
-                                getString(me.ccrama.redditslide.R.string.err_file_not_found_msg))
+                                getString(R.string.err_file_not_found_msg))
                         .setPositiveButton(R.string.btn_ok, null)
                         .setCancelable(false)
                         .show();
@@ -502,9 +504,9 @@ public class SettingsBackup extends BaseActivityAnim
                 @Override
                 public void onClick(View v) {
                     new AlertDialogWrapper.Builder(SettingsBackup.this).setTitle(
-                            getString(me.ccrama.redditslide.R.string.include_personal_info))
+                            getString(R.string.include_personal_info))
                             .setMessage(getString(
-                                    me.ccrama.redditslide.R.string.include_personal_info_msg))
+                                    R.string.include_personal_info_msg))
                             .setPositiveButton(R.string.btn_yes,
                                     new DialogInterface.OnClickListener() {
                                         @Override
@@ -656,9 +658,9 @@ public class SettingsBackup extends BaseActivityAnim
             protected void onPostExecute(Void aVoid) {
                 progress.dismiss();
                 new AlertDialogWrapper.Builder(SettingsBackup.this).setTitle(
-                        getString(me.ccrama.redditslide.R.string.backup_complete))
+                        getString(R.string.backup_complete))
                         .setMessage(
-                                getString(me.ccrama.redditslide.R.string.backup_saved_downloads))
+                                getString(R.string.backup_saved_downloads))
                         .setPositiveButton(R.string.btn_view,
                                 new DialogInterface.OnClickListener() {
                                     @Override
@@ -678,7 +680,7 @@ public class SettingsBackup extends BaseActivityAnim
                                                             Snackbar.LENGTH_INDEFINITE);
                                             View view = s.getView();
                                             TextView tv = (TextView) view.findViewById(
-                                                    android.support.design.R.id.snackbar_text);
+                                                    id.snackbar_text);
                                             tv.setTextColor(Color.WHITE);
                                             s.show();
                                         }

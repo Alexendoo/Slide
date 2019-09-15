@@ -10,8 +10,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
+
+import com.google.android.material.R.id;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -323,7 +325,7 @@ public class SubmissionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                                });
                                                                View view = s.getView();
                                                                TextView tv = view.findViewById(
-                                                                       android.support.design.R.id.snackbar_text);
+                                                                       id.snackbar_text);
                                                                tv.setTextColor(Color.WHITE);
                                                                s.show();
                                                            }
@@ -435,7 +437,7 @@ public class SubmissionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         public void run() {
                             View view = s.getView();
                             TextView tv = view.findViewById(
-                                    android.support.design.R.id.snackbar_text);
+                                    id.snackbar_text);
                             tv.setTextColor(Color.WHITE);
                             s.show();
                         }
@@ -453,7 +455,7 @@ public class SubmissionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         public void run() {
                             View view = s.getView();
                             TextView tv = view.findViewById(
-                                    android.support.design.R.id.snackbar_text);
+                                    id.snackbar_text);
                             tv.setTextColor(Color.WHITE);
                             s.show();
                         }

@@ -2,8 +2,10 @@ package me.ccrama.redditslide.Adapters;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
+
+import com.google.android.material.R;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -160,7 +162,7 @@ public class SubmissionComments {
         if (context == null || context.isEmpty()) {
             Snackbar s = Snackbar.make(page.rv, "Comment submitted", Snackbar.LENGTH_SHORT);
             View view = s.getView();
-            TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+            TextView tv = (TextView) view.findViewById(R.id.snackbar_text);
             tv.setTextColor(Color.WHITE);
             s.show();
         }
