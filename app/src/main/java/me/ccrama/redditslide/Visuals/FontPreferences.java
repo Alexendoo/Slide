@@ -3,8 +3,6 @@ package me.ccrama.redditslide.Visuals;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.devspark.robototextview.RobotoTypefaces;
-
 import me.ccrama.redditslide.R;
 
 /**
@@ -116,10 +114,10 @@ public class FontPreferences {
 
 
     public enum FontTypeComment {
-        Slab(RobotoTypefaces.TYPEFACE_ROBOTO_SLAB_REGULAR, "Slab"),
-        Condensed(RobotoTypefaces.TYPEFACE_ROBOTO_CONDENSED_REGULAR, "Condensed"),
-        Light(RobotoTypefaces.TYPEFACE_ROBOTO_LIGHT, "Light"),
-        Regular(RobotoTypefaces.TYPEFACE_ROBOTO_REGULAR, "Regular"),
+        Slab(R.font.roboto_regular, "Slab"),
+        Condensed(R.font.roboto_regular, "Condensed"),
+        Light(R.font.roboto_regular, "Light"),
+        Regular(R.font.roboto_regular, "Regular"),
         System(-1, "System");
 
         private final int typeface;
@@ -139,15 +137,15 @@ public class FontPreferences {
         }
     }
     public enum FontTypeTitle {
-        Slab(RobotoTypefaces.TYPEFACE_ROBOTO_SLAB_LIGHT, "Slab Light"),
-        SlabReg(RobotoTypefaces.TYPEFACE_ROBOTO_SLAB_REGULAR, "Slab Regular"),
-        Condensed(RobotoTypefaces.TYPEFACE_ROBOTO_CONDENSED_LIGHT, "Condensed Light"),
-        CondensedReg(RobotoTypefaces.TYPEFACE_ROBOTO_CONDENSED_REGULAR, "Condensed Regular"),
-        Light(RobotoTypefaces.TYPEFACE_ROBOTO_LIGHT, "Light"),
-        Regular(RobotoTypefaces.TYPEFACE_ROBOTO_REGULAR, "Regular"),
-        Bold(RobotoTypefaces.TYPEFACE_ROBOTO_BOLD, "Bold"),
-        Medium(RobotoTypefaces.TYPEFACE_ROBOTO_MEDIUM, "Medium"),
-        CondensedBold(RobotoTypefaces.TYPEFACE_ROBOTO_CONDENSED_BOLD, "Condensed Bold"),
+        Slab(R.font.roboto_regular, "Slab Light"),
+        SlabReg(R.font.roboto_regular, "Slab Regular"),
+        Condensed(R.font.roboto_regular, "Condensed Light"),
+        CondensedReg(R.font.roboto_regular, "Condensed Regular"),
+        Light(R.font.roboto_regular, "Light"),
+        Regular(R.font.roboto_regular, "Regular"),
+        Bold(R.font.roboto_regular, "Bold"),
+        Medium(R.font.roboto_regular, "Medium"),
+        CondensedBold(R.font.roboto_regular, "Condensed Bold"),
         System(-1, "System");
 
         private final int typeface;

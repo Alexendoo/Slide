@@ -1,14 +1,14 @@
 package me.ccrama.redditslide.Fragments;
 
 import android.app.Activity;
+
+import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SwitchCompat;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
-import com.devspark.robototextview.widget.RobotoRadioButton;
 
 import me.ccrama.redditslide.R;
 import me.ccrama.redditslide.SettingValues;
@@ -104,23 +104,23 @@ public class SettingsFontFragment {
 
         switch (new FontPreferences(context).getFontTypeComment()) {
             case Regular:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_creg)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_creg)).setChecked(true);
                 break;
             case Slab:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_cslab)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_cslab)).setChecked(true);
                 break;
             case Condensed:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_ccond)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_ccond)).setChecked(true);
                 break;
             case Light:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_clight)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_clight)).setChecked(true);
                 break;
             case System:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_cnone)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_cnone)).setChecked(true);
                 break;
 
         }
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_ccond)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_ccond)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -130,7 +130,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_cslab)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_cslab)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -140,7 +140,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_creg)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_creg)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -150,7 +150,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_clight)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_clight)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -160,7 +160,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_cnone)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_cnone)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -172,37 +172,37 @@ public class SettingsFontFragment {
         });
         switch (new FontPreferences(context).getFontTypeTitle()) {
             case Regular:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_sreg)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_sreg)).setChecked(true);
                 break;
             case Light:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_sregl)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_sregl)).setChecked(true);
                 break;
             case Slab:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_sslabl)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_sslabl)).setChecked(true);
                 break;
             case SlabReg:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_sslab)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_sslab)).setChecked(true);
                 break;
             case CondensedReg:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_scond)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_scond)).setChecked(true);
                 break;
             case CondensedBold:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_scondb)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_scondb)).setChecked(true);
                 break;
             case Condensed:
-                ((RobotoRadioButton) context.findViewById(R.id.scondl)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.scondl)).setChecked(true);
                 break;
             case Bold:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_sbold)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_sbold)).setChecked(true);
                 break;
             case Medium:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_smed)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_smed)).setChecked(true);
                 break;
             case System:
-                ((RobotoRadioButton) context.findViewById(R.id.settings_font_snone)).setChecked(true);
+                ((AppCompatRadioButton) context.findViewById(R.id.settings_font_snone)).setChecked(true);
                 break;
         }
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_scond)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_scond)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -212,7 +212,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_sslab)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_sslab)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -222,7 +222,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.scondl)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.scondl)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -232,7 +232,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_sbold)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_sbold)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -242,7 +242,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_smed)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_smed)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -252,7 +252,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_sslabl)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_sslabl)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -262,7 +262,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_sreg)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_sreg)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -272,7 +272,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_sregl)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_sregl)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -282,7 +282,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_snone)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_snone)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -292,7 +292,7 @@ public class SettingsFontFragment {
                 }
             }
         });
-        ((RobotoRadioButton) context.findViewById(R.id.settings_font_scondb)).setOnCheckedChangeListener(
+        ((AppCompatRadioButton) context.findViewById(R.id.settings_font_scondb)).setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

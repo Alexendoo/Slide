@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.AlertDialogWrapper;
-import com.devspark.robototextview.RobotoTypefaces;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -132,7 +133,7 @@ public class TumblrView extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 int type = new FontPreferences(holder.body.getContext()).getFontTypeComment().getTypeface();
                 Typeface typeface;
                 if (type >= 0) {
-                    typeface = RobotoTypefaces.obtainTypeface(holder.body.getContext(), type);
+                    typeface = ResourcesCompat.getFont(holder.body.getContext(), type);
                 } else {
                     typeface = Typeface.DEFAULT;
                 }
@@ -142,7 +143,7 @@ public class TumblrView extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 int type = new FontPreferences(holder.body.getContext()).getFontTypeTitle().getTypeface();
                 Typeface typeface;
                 if (type >= 0) {
-                    typeface = RobotoTypefaces.obtainTypeface(holder.body.getContext(), type);
+                    typeface = ResourcesCompat.getFont(holder.body.getContext(), type);
                 } else {
                     typeface = Typeface.DEFAULT;
                 }

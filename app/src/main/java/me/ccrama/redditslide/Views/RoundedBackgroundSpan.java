@@ -6,9 +6,11 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.text.style.ReplacementSpan;
 
-import com.devspark.robototextview.RobotoTypefaces;
+import me.ccrama.redditslide.R;
 
 /**
  * Created by carlo_000 on 3/11/2016.
@@ -44,7 +46,7 @@ public class RoundedBackgroundSpan extends ReplacementSpan {
             offset = (bottom - top) / 6;
         }
 
-        paint.setTypeface(RobotoTypefaces.obtainTypeface(c, RobotoTypefaces.TYPEFACE_ROBOTO_CONDENSED_BOLD));
+        paint.setTypeface(ResourcesCompat.getFont(c, R.font.roboto_condensed_bold));
 
         if (half) {
             paint.setTextSize(paint.getTextSize() / 2);
@@ -62,7 +64,7 @@ public class RoundedBackgroundSpan extends ReplacementSpan {
 
     @Override
     public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
-        paint.setTypeface(RobotoTypefaces.obtainTypeface(c, RobotoTypefaces.TYPEFACE_ROBOTO_CONDENSED_BOLD));
+        paint.setTypeface(ResourcesCompat.getFont(c, R.font.roboto_condensed_bold));
         final int size = Math.round(paint.measureText(text, start, end));
 
         if (half) {

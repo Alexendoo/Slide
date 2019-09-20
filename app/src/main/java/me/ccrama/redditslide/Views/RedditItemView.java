@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -23,8 +25,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.devspark.robototextview.RobotoTypefaces;
 
 import net.dean.jraw.models.Account;
 import net.dean.jraw.models.Comment;
@@ -411,7 +411,7 @@ public class RedditItemView extends RelativeLayout {
         int type = new FontPreferences(getContext()).getFontTypeComment().getTypeface();
         Typeface typeface;
         if (type >= 0) {
-            typeface = RobotoTypefaces.obtainTypeface(getContext(), type);
+            typeface = ResourcesCompat.getFont(getContext(), type);
         } else {
             typeface = Typeface.DEFAULT;
         }

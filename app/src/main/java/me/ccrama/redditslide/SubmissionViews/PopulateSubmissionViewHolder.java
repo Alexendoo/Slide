@@ -33,7 +33,6 @@ import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cocosw.bottomsheet.BottomSheet;
-import com.devspark.robototextview.RobotoTypefaces;
 import me.ccrama.redditslide.*;
 import me.ccrama.redditslide.Activities.*;
 import me.ccrama.redditslide.Adapters.CommentAdapter;
@@ -2759,7 +2758,7 @@ public class PopulateSubmissionViewHolder {
             int typef = new FontPreferences(mContext).getFontTypeComment().getTypeface();
             Typeface typeface;
             if (typef >= 0) {
-                typeface = RobotoTypefaces.obtainTypeface(mContext, typef);
+                typeface = ResourcesCompat.getFont(mContext, typef);
             } else {
                 typeface = Typeface.DEFAULT;
             }
@@ -2792,7 +2791,7 @@ public class PopulateSubmissionViewHolder {
                 int typef = new FontPreferences(mContext).getFontTypeComment().getTypeface();
                 Typeface typeface;
                 if (typef >= 0) {
-                    typeface = RobotoTypefaces.obtainTypeface(mContext, typef);
+                    typeface = ResourcesCompat.getFont(mContext, typef);
                 } else {
                     typeface = Typeface.DEFAULT;
                 }

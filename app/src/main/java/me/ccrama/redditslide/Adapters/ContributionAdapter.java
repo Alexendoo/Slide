@@ -17,6 +17,8 @@ import android.os.AsyncTask;
 
 import com.google.android.material.R.id;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -34,7 +36,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.cocosw.bottomsheet.BottomSheet;
-import com.devspark.robototextview.RobotoTypefaces;
 
 import net.dean.jraw.managers.AccountManager;
 import net.dean.jraw.models.Comment;
@@ -425,7 +426,7 @@ public class ContributionAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             int type = new FontPreferences(mContext).getFontTypeComment().getTypeface();
             Typeface typeface;
             if (type >= 0) {
-                typeface = RobotoTypefaces.obtainTypeface(mContext, type);
+                typeface = ResourcesCompat.getFont(mContext, type);
             } else {
                 typeface = Typeface.DEFAULT;
             }

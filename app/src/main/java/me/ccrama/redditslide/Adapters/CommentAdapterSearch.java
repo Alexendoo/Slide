@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spannable;
@@ -30,8 +31,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-
-import com.devspark.robototextview.RobotoTypefaces;
 
 import net.dean.jraw.models.Comment;
 import net.dean.jraw.models.CommentNode;
@@ -294,7 +293,7 @@ public class CommentAdapterSearch extends RecyclerView.Adapter<RecyclerView.View
         int type = new FontPreferences(mContext).getFontTypeComment().getTypeface();
         Typeface typeface;
         if (type >= 0) {
-            typeface = RobotoTypefaces.obtainTypeface(mContext, type);
+            typeface = ResourcesCompat.getFont(mContext, type);
         } else {
             typeface = Typeface.DEFAULT;
         }

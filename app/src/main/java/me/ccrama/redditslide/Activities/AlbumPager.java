@@ -13,6 +13,8 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -36,7 +38,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.cocosw.bottomsheet.BottomSheet;
-import com.devspark.robototextview.RobotoTypefaces;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -576,7 +577,7 @@ public class AlbumPager extends FullScreenActivity
                         int type = new FontPreferences(getContext()).getFontTypeComment().getTypeface();
                         Typeface typeface;
                         if (type >= 0) {
-                            typeface = RobotoTypefaces.obtainTypeface(getContext(), type);
+                            typeface = ResourcesCompat.getFont(getContext(), type);
                         } else {
                             typeface = Typeface.DEFAULT;
                         }
@@ -587,7 +588,7 @@ public class AlbumPager extends FullScreenActivity
                         int type = new FontPreferences(getContext()).getFontTypeTitle().getTypeface();
                         Typeface typeface;
                         if (type >= 0) {
-                            typeface = RobotoTypefaces.obtainTypeface(getContext(), type);
+                            typeface = ResourcesCompat.getFont(getContext(), type);
                         } else {
                             typeface = Typeface.DEFAULT;
                         }

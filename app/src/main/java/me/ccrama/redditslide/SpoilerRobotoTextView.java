@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 
 import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import android.text.*;
 import android.text.style.*;
@@ -23,7 +24,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.cocosw.bottomsheet.BottomSheet;
-import com.devspark.robototextview.widget.RobotoTextView;
 import me.ccrama.redditslide.Activities.Album;
 import me.ccrama.redditslide.Activities.AlbumPager;
 import me.ccrama.redditslide.Activities.MediaView;
@@ -56,7 +56,7 @@ import java.util.regex.Pattern;
 /**
  * Created by carlo_000 on 1/11/2016.
  */
-public class SpoilerRobotoTextView extends RobotoTextView implements ClickableText {
+public class SpoilerRobotoTextView extends AppCompatTextView implements ClickableText {
     private              List<CharacterStyle> storedSpoilerSpans  = new ArrayList<>();
     private              List<Integer>        storedSpoilerStarts = new ArrayList<>();
     private              List<Integer>        storedSpoilerEnds   = new ArrayList<>();
